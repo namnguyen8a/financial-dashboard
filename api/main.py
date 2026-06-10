@@ -1,4 +1,5 @@
 import uvicorn
+import yfinance as yf
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -7,9 +8,10 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/api/v1/companies/{ticker}")
+def get_ticker(ticker: str):
+    ticker_info = yf.Ticker(ticker)
+    return {"Ticker": ticker_info.info}
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
