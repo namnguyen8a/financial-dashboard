@@ -4,14 +4,14 @@
 **Phase Goal:** Establish a working pipeline where external financial data is fetched and served via a basic API endpoint.
 **Success Criteria:** You can send a request to your local server with a stock ticker and receive a structured JSON response containing real market data.
 
-- [ ] **Step 1: Research & Mental Mapping**
+- [X] **Step 1: Research & Mental Mapping**
     - **Goal:** Understand the tools for web routing, data fetching, and data validation.
     - **Keywords:** `FastAPI hello world`, `yfinance documentation`, `Pydantic schemas`.
-- [ ] **Step 2: Scripting the Data Source**
+- [X] **Step 2: Scripting the Data Source**
     - **Goal:** Create a standalone Python script that successfully pulls history and company info from Yahoo Finance.
-- [ ] **Step 3: Building the First Endpoint**
+- [X] **Step 3: Building the First Endpoint**
     - **Goal:** Integrate the script into a FastAPI GET route: `/api/v1/companies/{ticker}`.
-- [ ] **How to Test:** 
+- [X] **How to Test:** 
     - Use a browser or an API client (like Postman or Insomnia).
     - Request `localhost:8000/api/v1/companies/AAPL`.
     - **Pass condition:** You see a JSON object with Apple’s financial data.
