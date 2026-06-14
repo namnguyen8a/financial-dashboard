@@ -22,10 +22,10 @@
 **Phase Goal:** Move from "on-the-fly" fetching to persistent storage within a standardized environment.
 **Success Criteria:** The application and database run inside containers, and requested data is saved to a table for future use.
 
-- [ ] **Step 1: Research Infrastructure**
+- [X] **Step 1: Research Infrastructure**
     - **Goal:** Learn how to package applications and communicate with databases via code.
     - **Keywords:** `Docker Compose multi-container`, `SQLAlchemy ORM` or `SQLModel`, `Alembic migrations`.
-- [ ] **Step 2: Orchestration**
+- [X] **Step 2: Orchestration**
     - **Goal:** Write a `docker-compose.yml` to launch both the FastAPI app and a database (PostgreSQL/NoSQL) simultaneously.
 - [ ] **Step 3: Persistence Logic**
     - **Goal:** Update the API logic: when a ticker is requested, the app checks the DB or saves the new `yfinance` data into the DB.
