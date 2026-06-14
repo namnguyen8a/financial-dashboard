@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+# --- SERVICE DB ---
+  db:
+    image: mysql:8.0
+    container_name: backend_db
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_DATABASE=financial_db
+    ports:
+      - "3307:3306"
+    networks:
+      - app_network
+    volumes:
+      - db_storage:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p12345"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+# --- SERVICE API ---
+  api:
+    build:
+      context: . # Đường dẫn tới thư mục chứa code và Dockerfile của API
+      dockerfile: api/Dockerfile.api
+    container_name: backend_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000" # Map port 8000 từ máy host vào port 8000 của container API
+    environment:
+      - DB_HOST=db       # DÙNG TÊN SERVICE "db" ĐỂ KẾT NỐI (Thay vì localhost)
+      - DB_PORT=3306     # Kết nối nội bộ qua mạng Docker nên dùng port gốc 3306
+      - DB_USER=root
+      - DB_PASSWORD=12345
+      - DB_NAME=financial_db
+    depends_on:
+      db:
+        condition: service_healthy # Chỉ khởi động API sau khi DB đã pass phần healthcheck ở trên
+    networks:
+      - app_network
+
+# --- QUẢN LÝ DỮ LIỆU ---
+volumes:
+  db_storage: # Khai báo volume để lưu data MySQL không bị mất khi xóa container
+
+# --- QUẢN LÝ MẠNG NỘI BỘ ---
+networks:
+  app_network:
+    driver: bridge
+
